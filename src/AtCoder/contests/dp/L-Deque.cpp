@@ -21,7 +21,7 @@ int main()
     }
 
     ll dp[N][N];
-    memset(dp, false, sizeof dp);
+    memset(dp, 0, sizeof dp);
 
     for (int i = 0; i < N; i++)
     {
