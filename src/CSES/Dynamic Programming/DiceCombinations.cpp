@@ -21,29 +21,12 @@ int main()
     for (int i = 1; i <= n; i++)
     {
         dp[i] = 0;
-        if (i >= 1) {
-            dp[i] += dp[i-1];
-            dp[i] %= MOD;
-        }
-        if (i >= 2) {
-            dp[i] += dp[i-2];
-            dp[i] %= MOD;
-        }
-        if (i >= 3) {
-            dp[i] += dp[i-3];
-            dp[i] %= MOD;
-        }
-        if (i >= 4) {
-            dp[i] += dp[i-4];
-            dp[i] %= MOD;
-        }
-        if (i >= 5) {
-            dp[i] += dp[i-5];
-            dp[i] %= MOD;
-        }
-        if (i >= 6) {
-            dp[i] += dp[i-6];
-            dp[i] %= MOD;
+        for (int d = 1; d <= 6; d++)
+        {
+            if (i >= d) {
+                dp[i] += dp[i-d];
+                dp[i] %= MOD;
+            }
         }
     }
 
