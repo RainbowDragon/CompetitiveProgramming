@@ -7,12 +7,14 @@
 
 using namespace std;
 
+typedef pair<int, int> pii;
+
 int main()
 {
     int n;
     cin >> n;
 
-    pair<int, int> movie[n];
+    pii movie[n];
     for (int i = 0; i < n; i++)
     {
         int a, b;
