@@ -7,12 +7,14 @@
 
 using namespace std;
 
+typedef pair<int, int> pii;
+
 int main()
 {
     int n;
     cin >> n;
 
-    pair<int, int> time[2*n];
+    pii time[2*n];
     for (int i = 0; i < n; i++)
     {
         int start, end;
