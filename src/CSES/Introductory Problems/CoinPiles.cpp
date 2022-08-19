@@ -7,13 +7,13 @@
 
 using namespace std;
 
-bool test(int a, int b)
+bool solve(int a, int b)
 {
     if (a == b) {
         return a % 3 == 0;
     }
     else if (b > a) {
-        return test(b, a);
+        return solve(b, a);
     }
     else {
         if (a - b > b) {
@@ -35,7 +35,7 @@ int main()
     {
         int a, b;
         cin >> a >> b;
-        result[i] = test(a, b);
+        result[i] = solve(a, b);
     }
 
     for (int i = 0; i < n; i++)
