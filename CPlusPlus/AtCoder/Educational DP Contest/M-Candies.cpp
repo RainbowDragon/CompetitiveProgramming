@@ -25,16 +25,16 @@ int main()
     memset(dp, 0, sizeof dp);
     dp[0] = 1;
 
-    ll prefix[K+1];
-    memset(prefix, 0, sizeof prefix);
+    ll prefixSum[K+1];
+    memset(prefixSum, 0, sizeof prefixSum);
 
     for (int i = 0; i < N; i++)
     {
-        prefix[0] = dp[0];   
+        prefixSum[0] = dp[0];
         for (int j = 1; j <= K; j++)
         {
-            prefix[j] = prefix[j-1] + dp[j];
-            prefix[j] %= MOD;
+            prefixSum[j] = prefixSum[j-1] + dp[j];
+            prefixSum[j] %= MOD;
         }
 
         for (int j = 0; j <= K; j++)
@@ -43,11 +43,11 @@ int main()
 
             if (index >= 0)
             {
-                dp[j] = (prefix[j] - prefix[index] + MOD) % MOD;
+                dp[j] = (prefixSum[j] - prefixSum[index] + MOD) % MOD;
             }
             else
             {
-                dp[j] = prefix[j];
+                dp[j] = prefixSum[j];
             }
         }
     }
