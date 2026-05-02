@@ -31,8 +31,7 @@ int main()
 
         for (int j = 0; j < N; j++)
         {
-            if (!(mask & (1 << j)) && a[i][j])
-            {
+            if (!(mask & (1 << j)) && a[i][j]) {
                 int next_mask = mask | (1 << j);
                 dp[next_mask] = (dp[next_mask] + dp[mask]) % MOD;
             }
