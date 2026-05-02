@@ -41,12 +41,10 @@ int main()
         {
             int index = j - a[i] - 1;
 
-            if (index >= 0)
-            {
+            if (index >= 0) {
                 dp[j] = (prefixSum[j] - prefixSum[index] + MOD) % MOD;
             }
-            else
-            {
+            else {
                 dp[j] = prefixSum[j];
             }
         }
