@@ -3,34 +3,42 @@
  *
  */
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
-void dfs(int node, vector<int>* graph, int* dp)
+// DFS function using pull-DP with proper completion tracking
+int dfs(int node, const vector<vector<int>>& graph, vector<int>& dp)
 {
-    if (dp[node] > 0) {
-        return;
+    // If the value is not -1, it has been fully computed and memoized
+    if (dp[node] != -1) {
+        return dp[node];
     }
 
+    int max_len = 0;
     for (int next : graph[node]) 
     {
-        dfs(next, graph, dp);
-        dp[node] = max(dp[node], dp[next]+1);
+        // The path length from 'node' is 1 + the longest path starting from 'next'
+        max_len = max(max_len, 1 + dfs(next, graph, dp));
     }
 
-    return;
+    // Memoize the final computed result for this node
+    return dp[node] = max_len;
 }
 
 int main()
 {
+    // Optimize standard I/O operations for competitive programming
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int N, M;
-    cin >> N >> M;
+    if (!(cin >> N >> M)) return 0;
 
-    int dp[N+1];
-    memset(dp, 0, sizeof dp);
-    vector<int> graph[N+1];
-
+    // Use standard safe layout on the heap to avoid Stack Overflow
+    vector<vector<int>> graph(N + 1);
     for (int i = 0; i < M; i++)
     {
         int x, y;
@@ -38,18 +46,16 @@ int main()
         graph[x].push_back(y);
     }
 
-    for (int i = 1; i <= N; i++)
-    {
-        dfs(i, graph, dp);
-    }
+    // Initialize DP array with -1 to properly identify unvisited nodes
+    vector<int> dp(N + 1, -1);
 
     int result = 0;
     for (int i = 1; i <= N; i++)
     {
-        result = max(result, dp[i]);
+        result = max(result, dfs(i, graph, dp));
     }
 
-    cout << result << endl;
+    cout << result << "\n";
 
     return 0;
 }
