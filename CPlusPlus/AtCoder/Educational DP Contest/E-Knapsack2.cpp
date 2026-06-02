@@ -3,47 +3,60 @@
  *
  */
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
 typedef long long ll;
-const int NV = 1e5+1;
-const ll NW = 1e11+1;
+
+// A safe "infinity" value for weights that won't overflow when adding
+const ll INF = 1e15; 
 
 int main()
 {
-    int N, W;
-    cin >> N >> W;
-    int weight[N], value[N];
-    ll dp[NV];
+    // Optimize standard I/O operations for competitive programming
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
+    int N, W;
+    if (!(cin >> N >> W)) return 0;
+
+    // Read inputs on the fly and track the maximum possible value sum
+    vector<pair<int, int>> items(N);
+    int max_value_sum = 0;
     for (int i = 0; i < N; i++)
     {
-        cin >> weight[i] >> value[i];
+        cin >> items[i].first >> items[i].second; // first = weight, second = value
+        max_value_sum += items[i].second;
     }
 
-    for (int i = 0; i < NV; i++)
-    {
-        dp[i] = NW;
-    }
-
+    // dp[j] stores the minimum weight needed to get exactly value 'j'
+    // Dynamic size based on actual input instead of a rigid 1e5+1
+    vector<ll> dp(max_value_sum + 1, INF);
     dp[0] = 0;
 
+    // Process each item
     for (int i = 0; i < N; i++)
     {
-        for (int j = NV-1; j >= 0; j--)
+        int w = items[i].first;
+        int v = items[i].second;
+
+        // Loop backwards, stopping at 'v' to eliminate the internal 'if' check
+        for (int j = max_value_sum; j >= v; j--)
         {
-            if (j >= value[i]) {
-                dp[j] = min(dp[j], dp[j-value[i]]+weight[i]);
+            if (dp[j - v] != INF) { // Only transition from a reachable value state
+                dp[j] = min(dp[j], dp[j - v] + w);
             }
         }
     }
 
-    for (int i = NV-1; i >= 0; i--)
+    // Find the maximum value achievable within the weight limit W
+    for (int j = max_value_sum; j >= 0; j--)
     {
-        if (dp[i] <= W) {
-            cout << i << endl;
+        if (dp[j] <= W) {
+            cout << j << "\n";
             break;
         }
     }
