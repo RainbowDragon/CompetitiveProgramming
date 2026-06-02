@@ -3,31 +3,49 @@
  *
  */
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
 
 using namespace std;
 
 int main()
 {
-    int N;
-    cin >> N;
-    int height[N];
+    // Optimize standard I/O operations for competitive programming
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
+    int N;
+    if (!(cin >> N)) return 0;
+
+    vector<int> height(N);
     for (int i = 0; i < N; i++)
     {
         cin >> height[i];
     }
 
-    int dp[N];
-    dp[0] = 0;
-    dp[1] = abs(height[1] - height[0]);
+    // Edge case: If there's only 1 stone, the cost is 0
+    if (N == 1) {
+        cout << 0 << "\n";
+        return 0;
+    }
+
+    // Instead of a DP array, we just track the last two minimum costs
+    int prev2 = 0;                                 // Equivalent to dp[i-2] (initially dp[0])
+    int prev1 = abs(height[1] - height[0]);        // Equivalent to dp[i-1] (initially dp[1])
 
     for (int i = 2; i < N; i++)
     {
-        dp[i] = min(abs(height[i] - height[i-1]) + dp[i-1], abs(height[i] - height[i-2]) + dp[i-2]);
+        int current_cost = min(abs(height[i] - height[i-1]) + prev1, 
+                               abs(height[i] - height[i-2]) + prev2);
+        
+        // Shift our variables forward for the next iteration
+        prev2 = prev1;
+        prev1 = current_cost;
     }
 
-    cout << dp[N-1] << endl;
+    cout << prev1 << "\n";
 
     return 0;
 }
