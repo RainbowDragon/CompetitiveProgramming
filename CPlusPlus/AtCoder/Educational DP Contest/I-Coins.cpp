@@ -3,50 +3,55 @@
  *
  */
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <iomanip>
 
 using namespace std;
 
 int main()
 {
-    int N;
-    cin >> N;
-    double prob[N];
+    // Optimize standard I/O operations for competitive programming
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
+    int N;
+    if (!(cin >> N)) return 0;
+
+    // dp[j] stores the probability of getting exactly 'j' heads so far
+    // Allocated safely on the heap and automatically initialized to 0.0
+    vector<double> dp(N + 1, 0.0);
+    
+    // Base case: Before tossing any coins, the probability of 0 heads is 1.0
+    dp[0] = 1.0;
+
+    // Process each coin one by one
     for (int i = 0; i < N; i++)
     {
-        cin >> prob[i];
-    }
+        double p_head;
+        cin >> p_head;
+        double p_tail = 1.0 - p_head;
 
-    double dp[N][N+1];
-    for (int i = 0; i <= N; i++)
-    {
-        dp[0][i] = 0;
-    }
-    dp[0][0] = 1 - prob[0];
-    dp[0][1] = prob[0];
-
-    for (int i = 1; i < N; i++)
-    {
-        dp[i][0] = dp[i-1][0]*(1 - prob[i]);
-        for (int j = 1; j <= i+1; j++)
+        // Iterate BACKWARDS so we don't overwrite states from the previous iteration
+        // j goes up to i + 1 because with i+1 coins, you can have at most i+1 heads
+        for (int j = i + 1; j >= 0; j--)
         {
-            dp[i][j] = dp[i-1][j-1]*prob[i] + dp[i-1][j]*(1 - prob[i]);
-        }
-        for (int j = i+2; j <= N; j++)
-        {
-            dp[i][j] = 0;
+            if (j == 0) {
+                dp[j] = dp[j] * p_tail;
+            } else {
+                dp[j] = dp[j] * p_tail + dp[j - 1] * p_head;
+            }
         }
     }
 
-    double result = 0;
-    int moreHeads = N/2 + 1;
-    for (int i = moreHeads; i <= N; i++)
+    // Sum up the probabilities where the number of heads is strictly greater than N / 2
+    double total_probability = 0;
+    for (int j = N / 2 + 1; j <= N; j++)
     {
-        result += dp[N-1][i];
+        total_probability += dp[j];
     }
 
-    cout << fixed << setprecision(10) << result << endl;
+    cout << fixed << setprecision(10) << total_probability << "\n";
 
     return 0;
 }
