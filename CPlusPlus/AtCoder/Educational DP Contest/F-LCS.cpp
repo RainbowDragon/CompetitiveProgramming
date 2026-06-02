@@ -3,27 +3,32 @@
  *
  */
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
 int main()
 {
+    // Optimize standard I/O operations for competitive programming
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     string s, t;
-    cin >> s >> t;
+    if (!(cin >> s >> t)) return 0;
+
     int m = s.size();
     int n = t.size();
 
-    int dp[m+1][n+1];
+    // Allocate memory safely on the heap to avoid stack overflow.
+    // This automatically initializes the entire 2D grid to 0.
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
 
-    for (int i = 0; i <= n; i++)
-    {
-        dp[0][i] = 0;
-    }
-
+    // Fill the DP table
     for (int i = 1; i <= m; i++)
     {
-        dp[i][0] = 0;
         for (int j = 1; j <= n; j++)
         { 
             if (s[i-1] == t[j-1]) {
@@ -35,12 +40,14 @@ int main()
         }     
     }
 
+    // Backtrack to find the actual LCS string
     string result = "";
     int i = m, j = n;
     while (i > 0 && j > 0)
     {
         if (s[i-1] == t[j-1]) {
-            result = s[i-1] + result;
+            // OPTIMIZATION: push_back is O(1). Do not prepend with '+'
+            result.push_back(s[i-1]); 
             i--;
             j--;
         }
@@ -52,7 +59,10 @@ int main()
         }
     }
 
-    cout << result << endl;
+    // Since we appended characters backwards, reverse the string once at the end
+    reverse(result.begin(), result.end());
+
+    cout << result << "\n";
 
     return 0;
 }
