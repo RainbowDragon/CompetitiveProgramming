@@ -3,7 +3,9 @@
  *
  */
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -11,32 +13,31 @@ typedef long long ll;
 
 int main()
 {
+    // Optimize standard I/O operations for competitive programming
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int N, W;
-    cin >> N >> W;
-    int weight[N], value[N];
-    ll dp[W+1];
+    if (!(cin >> N >> W)) return 0;
 
+    // Allocate DP array safely on the heap using std::vector
+    // This automatically initializes all elements to 0
+    vector<ll> dp(W + 1, 0);
+
+    // Process each item on the fly without storing them in arrays
     for (int i = 0; i < N; i++)
     {
-        cin >> weight[i] >> value[i];
-    }
+        int w, v;
+        cin >> w >> v;
 
-    for (int i = 0; i <= W; i++)
-    {
-        dp[i] = 0;
-    }
-
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = W; j > 0; j--)
+        // Loop stops automatically when j < w, eliminating the internal 'if' check
+        for (int j = W; j >= w; j--)
         {
-            if (j >= weight[i]) {
-                dp[j] = max(dp[j], dp[j-weight[i]]+value[i]);
-            }
+            dp[j] = max(dp[j], dp[j - w] + v);
         }
     }
 
-    cout << dp[W] << endl;
+    cout << dp[W] << "\n";
 
     return 0;
 }
