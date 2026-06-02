@@ -3,48 +3,53 @@
  *
  */
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 
 typedef long long ll;
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 
 int main()
 {
+    // Optimize standard I/O operations for competitive programming
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int H, W;
-    cin >> H >> W;
-    bool grid[H][W];
+    if (!(cin >> H >> W)) return 0;
+
+    // dp[j] stores the number of paths to reach the current cell in column j
+    // This safely allocates on the heap and initializes all values to 0
+    vector<ll> dp(W, 0);
+    
+    // Base case: Starting position has 1 way to be reached
+    dp[0] = 1;
 
     for (int i = 0; i < H; i++)
     {
-        string str;
-        cin >> str;
+        string row_str;
+        cin >> row_str; // Process the grid on the fly, row by row
+
         for (int j = 0; j < W; j++)
         {
-            grid[i][j] = (str[j] == '.');
-        } 
+            if (row_str[j] == '#') {
+                // If it's a wall, no paths can pass through it
+                dp[j] = 0;
+            } 
+            else {
+                // If it's empty, add the paths from the left cell (dp[j-1])
+                // The current dp[j] already holds the value from the row above!
+                if (j > 0) {
+                    dp[j] = (dp[j] + dp[j - 1]) % MOD;
+                }
+            }
+        }
     }
 
-    ll dp[H][W];
-    dp[0][0] = grid[0][0] ? 1 : 0;
-    for (int i = 1; i < H; i++)
-    {
-        dp[i][0] = grid[i][0] ? dp[i-1][0] : 0;
-    }
-    for (int i = 1; i < W; i++)
-    {
-        dp[0][i] = grid[0][i] ? dp[0][i-1] : 0;
-    }
-
-    for (int i = 1; i < H; i++)
-        for (int j = 1; j < W; j++)
-        { 
-            dp[i][j] = grid[i][j] ? dp[i-1][j]+dp[i][j-1] : 0;
-            dp[i][j] %= MOD;
-        }     
-
-    cout << dp[H-1][W-1] << endl;
+    cout << dp[W - 1] << "\n";
 
     return 0;
 }
