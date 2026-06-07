@@ -22,8 +22,6 @@ int main()
     int m = s.size();
     int n = t.size();
 
-    // Allocate memory safely on the heap to avoid stack overflow.
-    // This automatically initializes the entire 2D grid to 0.
     vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
 
     // Fill the DP table
@@ -62,7 +60,7 @@ int main()
     // Since we appended characters backwards, reverse the string once at the end
     reverse(result.begin(), result.end());
 
-    cout << result << "\n";
+    cout << result << endl;
 
     return 0;
 }
