@@ -20,7 +20,7 @@ int main()
     int N, W;
     if (!(cin >> N >> W)) return 0;
 
-    // dp[j] stores the maximum value under the weight 'j'
+    // dp[j] stores the maximum value within the weight limit 'j'
     vector<ll> dp(W + 1, 0);
 
     // Process each item on the fly without storing them in arrays
