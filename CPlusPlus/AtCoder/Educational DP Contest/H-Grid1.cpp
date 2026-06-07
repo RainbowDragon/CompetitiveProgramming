@@ -22,7 +22,6 @@ int main()
     if (!(cin >> H >> W)) return 0;
 
     // dp[j] stores the number of paths to reach the current cell in column j
-    // This safely allocates on the heap and initializes all values to 0
     vector<ll> dp(W, 0);
     
     // Base case: Starting position has 1 way to be reached
@@ -49,7 +48,7 @@ int main()
         }
     }
 
-    cout << dp[W - 1] << "\n";
+    cout << dp[W - 1] << endl;
 
     return 0;
 }
