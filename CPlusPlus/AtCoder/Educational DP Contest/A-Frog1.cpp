@@ -27,7 +27,7 @@ int main()
 
     // Edge case: If there's only 1 stone, the cost is 0
     if (N == 1) {
-        cout << 0 << "\n";
+        cout << 0 << endl;
         return 0;
     }
 
@@ -45,7 +45,7 @@ int main()
         prev1 = current_cost;
     }
 
-    cout << prev1 << "\n";
+    cout << prev1 << endl;
 
     return 0;
 }
