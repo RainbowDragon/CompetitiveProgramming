@@ -37,7 +37,6 @@ int main()
     int N, M;
     if (!(cin >> N >> M)) return 0;
 
-    // Use standard safe layout on the heap to avoid Stack Overflow
     vector<vector<int>> graph(N + 1);
     for (int i = 0; i < M; i++)
     {
@@ -55,7 +54,7 @@ int main()
         result = max(result, dfs(i, graph, dp));
     }
 
-    cout << result << "\n";
+    cout << result << endl;
 
     return 0;
 }
