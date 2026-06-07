@@ -9,13 +9,9 @@
 
 using namespace std;
 
-// Allocate the large DP table on the heap via global vectors or a flat global array 
-// to prevent stack overflow.
-double dp[301][301][301];
-
 int main()
 {
-    // 1. Fast I/O
+    // Optimize standard I/O operations for competitive programming
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
@@ -34,7 +30,8 @@ int main()
     // i dishes with 1 coin
     // j dishes with 2 coins
     // k dishes with 3 coins
-    
+    double dp[N+1][N+1][N+1];
+
     // Iterating bottom-up based on total number of coins
     for (int k = 0; k <= N; k++) {
         for (int j = 0; j <= N; j++) {
@@ -56,15 +53,14 @@ int main()
                 double choose_2 = (j > 0) ? j * dp[i + 1][j - 1][k] : 0.0;
                 double choose_3 = (k > 0) ? k * dp[i][j + 1][k - 1] : 0.0;
 
-                // Derived from the equation: 
-                // E = (N/total_active) + (i/total_active)*dp[i-1] + (j/total_active)*dp[i+1][j-1] + ...
+                // Derived from the equation:
                 dp[i][j][k] = (N + choose_1 + choose_2 + choose_3) / total_active;
             }
         }
     }
 
     // Print the final result calculated for our initial counts
-    cout << fixed << setprecision(10) << dp[count[1]][count[2]][count[3]] << "\n";
+    cout << fixed << setprecision(10) << dp[count[1]][count[2]][count[3]] << endl;
 
     return 0;
 }
