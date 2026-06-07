@@ -27,8 +27,6 @@ int main()
     // Sorting allows us to break early in the inner loop
     sort(a.begin(), a.end());
 
-    // vector<bool> is space-optimized by the STL (uses 1 bit per boolean)
-    // and automatically initializes everything to false.
     vector<bool> dp(K + 1, false);
 
     for (int i = 1; i <= K; i++)
@@ -49,7 +47,7 @@ int main()
         }
     }
 
-    cout << (dp[K] ? "First" : "Second") << "\n";
+    cout << (dp[K] ? "First" : "Second") << endl;
 
     return 0;
 }
