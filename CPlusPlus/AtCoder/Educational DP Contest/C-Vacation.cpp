@@ -40,7 +40,7 @@ int main()
     }
 
     // The answer is the maximum value possible on the final day
-    cout << max({prev_A, prev_B, prev_C}) << "\n";
+    cout << max({prev_A, prev_B, prev_C}) << endl;
 
     return 0;
 }
