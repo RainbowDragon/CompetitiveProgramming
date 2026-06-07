@@ -19,7 +19,6 @@ int main()
     if (!(cin >> N)) return 0;
 
     // dp[j] stores the probability of getting exactly 'j' heads so far
-    // Allocated safely on the heap and automatically initialized to 0.0
     vector<double> dp(N + 1, 0.0);
     
     // Base case: Before tossing any coins, the probability of 0 heads is 1.0
@@ -51,7 +50,7 @@ int main()
         total_probability += dp[j];
     }
 
-    cout << fixed << setprecision(10) << total_probability << "\n";
+    cout << fixed << setprecision(10) << total_probability << endl;
 
     return 0;
 }
