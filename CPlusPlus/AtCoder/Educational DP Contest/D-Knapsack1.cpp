@@ -20,8 +20,6 @@ int main()
     int N, W;
     if (!(cin >> N >> W)) return 0;
 
-    // Allocate DP array safely on the heap using std::vector
-    // This automatically initializes all elements to 0
     vector<ll> dp(W + 1, 0);
 
     // Process each item on the fly without storing them in arrays
@@ -37,7 +35,7 @@ int main()
         }
     }
 
-    cout << dp[W] << "\n";
+    cout << dp[W] << endl;
 
     return 0;
 }
