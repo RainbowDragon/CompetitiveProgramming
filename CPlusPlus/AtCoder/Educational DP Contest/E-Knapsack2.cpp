@@ -33,7 +33,6 @@ int main()
     }
 
     // dp[j] stores the minimum weight needed to get exactly value 'j'
-    // Dynamic size based on actual input instead of a rigid 1e5+1
     vector<ll> dp(max_value_sum + 1, INF);
     dp[0] = 0;
 
@@ -56,7 +55,7 @@ int main()
     for (int j = max_value_sum; j >= 0; j--)
     {
         if (dp[j] <= W) {
-            cout << j << "\n";
+            cout << j << endl;
             break;
         }
     }
