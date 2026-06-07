@@ -20,7 +20,6 @@ int main()
     int N, K;
     if (!(cin >> N >> K)) return 0;
 
-    // Use vector to avoid stack overflow
     vector<int> height(N);
     for (int i = 0; i < N; i++)
     {
@@ -31,7 +30,7 @@ int main()
     vector<int> dp(N, INT_MAX);
     dp[0] = 0;
 
-    // "Pull" DP: Calculate the min cost for stone i by looking back at previous K stones
+    // DP: Calculate the min cost for stone i by looking back at previous K stones
     for (int i = 1; i < N; i++)
     {
         // Look back up to K steps, but don't go past stone 0
@@ -41,7 +40,7 @@ int main()
         }
     }
 
-    cout << dp[N - 1] << "\n";
+    cout << dp[N - 1] << endl;
 
     return 0;
 }
