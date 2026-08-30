@@ -9,7 +9,7 @@ using namespace std;
  
 typedef long long ll;
 const int MOD = 1e9+7;
- 
+
 int main()
 {
     int n, m;
@@ -34,46 +34,32 @@ int main()
         }
     }
  
-    vector<ll> temp(m+2, 0);
-
     for (int i = 1; i < n; i++)
     {
-        int value = x[i];
-        if (value != 0) 
+        vector<ll> temp(m+2, 0);
+
+        if (x[i] != 0)
         {
-            dp[value] += dp[value-1];
-            dp[value] += dp[value+1];
-            dp[value] %= MOD;
-            value = dp[value];
- 
-            for (int j = 1; j <= m; j++)
-            {
-                dp[j] = 0;
-            }
- 
-            dp[x[i]] = value;
+            int k = x[i];
+            temp[k] = dp[k-1] + dp[k] + dp[k+1];
+            temp[k] %= MOD;
         }
         else 
         {
-            for (int j = 1; j <= m; j++)
+            for (int k = 1; k <= m; k++)
             {
-                temp[j] = dp[j];
-                temp[j] += dp[j-1];
-                temp[j] += dp[j+1];
-                temp[j] %= MOD;
-            }
-            
-            for (int j = 1; j <= m; j++)
-            {
-                dp[j] = temp[j];
+                temp[k] = dp[k-1] + dp[k] + dp[k+1];
+                temp[k] %= MOD;                
             }
         }
+
+        dp = move(temp);
     }
  
     ll result = 0;
-    for (int i = 1; i <= m; i++)
+    for (int k = 1; k <= m; k++)
     {
-        result += dp[i];
+        result += dp[k];
         result %= MOD;
     }
  
