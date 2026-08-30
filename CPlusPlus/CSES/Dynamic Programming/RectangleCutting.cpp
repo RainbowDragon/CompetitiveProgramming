@@ -7,50 +7,34 @@
 
 using namespace std;
  
-int dp[501][501];
- 
-int dfs(int a, int b)
-{
-    if (a > b)
-    {
-        swap(a, b);
-    }
-
-    if (a == b) 
-    {
-        return 0;
-    }
- 
-    if (dp[a][b] != -1) 
-    {
-        return dp[a][b];
-    }
- 
-    int result = 1e9;
-
-    for (int i = 1; i <= b/2; i++)
-    {
-        result = min(result, dfs(a, i)+dfs(a, b-i)+1);
-    }
-    
-    for (int i = 1; i <= a/2; i++)
-    {
-        result = min(result, dfs(i, b)+dfs(a-i, b)+1);
-    }
- 
-    dp[a][b] = result;
- 
-    return dp[a][b];
-}
- 
 int main()
 {
     int a, b;
     cin >> a >> b;
     
-    memset(dp, -1, sizeof dp);
+    vector<vector<int>> dp(a+1, vector<int>(b+1, 0));
  
-    cout << dfs(a, b) << endl;
+    for (int i = 1; i <= a; i++)
+        for (int j = 1; j <= b; j++)
+        {
+            if (i == j) 
+            {
+                continue;
+            }
+
+            int result = 1e9;
+            for (int k = 1; k <= i/2; k++)
+            {
+                result = min(result, dp[k][j]+dp[i-k][j]+1);
+            }
+            for (int k = 1; k <= j/2; k++)
+            {
+                result = min(result, dp[i][k]+dp[i][j-k]+1);
+            }
+            dp[i][j] = result;
+        }
+
+    cout << dp[a][b] << endl;
  
     return 0;
 }
