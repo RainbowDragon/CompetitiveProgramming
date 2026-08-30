@@ -27,12 +27,9 @@ int main()
     vector<int> dp(x+1, 0);
 
     for (int i = 0; i < n; i++)
-        for (int j = x; j >= 0; j--)
+        for (int j = x; j >= h[i]; j--)
         {
-            if (j >= h[i]) 
-            {
-                dp[j] = max(dp[j], dp[j-h[i]]+s[i]);
-            }
+            dp[j] = max(dp[j], dp[j-h[i]]+s[i]);
         }
  
     cout << dp[x] << endl;
