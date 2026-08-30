@@ -21,23 +21,13 @@ int main()
     vector<int> dp(x+1, 1e9);
     dp[0] = 0;
 
-    for (int i = 1; i <= x; i++)
-    {
-        for (int c : coin)
+    for (int c : coin)
+        for (int i = c; i <= x; i++)
         {
-            if (i >= c) 
-            {
-                dp[i] = min(dp[i], dp[i-c]+1);
-            }
+            dp[i] = min(dp[i], dp[i-c]+1);
         }
-    }
- 
-    if (dp[x] == 1e9) 
-    {
-        dp[x] = -1;
-    }
-    
-    cout << dp[x] << endl;
+     
+    cout << (dp[x] == 1e9 ? -1 : dp[x]) << endl;
  
     return 0;
 }
