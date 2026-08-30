@@ -12,24 +12,25 @@ int main()
     int n, x;
     cin >> n >> x;
  
-    int h[n];
+    vector<int> h(n);
     for (int i = 0; i < n; i++)
     {
         cin >> h[i];
     }
  
-    int s[n];
+    vector<int> s(n);
     for (int i = 0; i < n; i++)
     {
         cin >> s[i];
     }    
  
-    int dp[x+1];
-    memset(dp, 0, sizeof dp);
+    vector<int> dp(x+1, 0);
+
     for (int i = 0; i < n; i++)
         for (int j = x; j >= 0; j--)
         {
-            if (j >= h[i]) {
+            if (j >= h[i]) 
+            {
                 dp[j] = max(dp[j], dp[j-h[i]]+s[i]);
             }
         }
