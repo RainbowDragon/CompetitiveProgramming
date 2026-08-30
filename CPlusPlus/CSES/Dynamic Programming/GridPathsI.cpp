@@ -15,7 +15,7 @@ int main()
     int n;
     cin >> n;
     
-    bool grid[n][n];
+    vector<vector<bool>> grid(n, vector<bool>(n));
     for (int i = 0; i < n; i++)
     {
         string str;
@@ -26,7 +26,7 @@ int main()
         }
     }
  
-    ll dp[n][n];
+    vector<vector<ll>> dp(n, vector<ll>(n));
     dp[0][0] = grid[0][0] ? 1 : 0;
  
     for (int i = 1; i < n; i++)
