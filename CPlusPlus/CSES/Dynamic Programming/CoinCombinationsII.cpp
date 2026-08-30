@@ -7,7 +7,6 @@
 
 using namespace std;
 
-typedef long long ll;
 const int MOD = 1e9+7;
  
 int main()
@@ -20,20 +19,16 @@ int main()
     {
         cin >> coin[i];
     }
-    sort(coin.begin(), coin.end());
  
-    vector<ll> dp(x+1, 0);
+    vector<int> dp(x+1, 0);
     dp[0] = 1;
 
     for (int c : coin)
     {
-        for (int i = 1; i <= x; i++)
+        for (int i = c; i <= x; i++)
         {
-            if (i >= c) 
-            {
-                dp[i] += dp[i-c];
-                dp[i] %= MOD;
-            }
+            dp[i] += dp[i-c];
+            dp[i] %= MOD;
         }
     }
     
