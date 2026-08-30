@@ -17,20 +17,20 @@ int main()
     int n, x;
     cin >> n >> x;
     
-    int coin[n];
+    vector<int> coin(n);
     for (int i = 0; i < n; i++)
     {
         cin >> coin[i];
     }
  
-    ll dp[x+1];
+    vector<ll> dp(x+1, 0);
     dp[0] = 1;
     for (int i = 1; i <= x; i++)
     {
-        dp[i] = 0;
         for (int c : coin)
         {
-            if (i >= c) {
+            if (i >= c) 
+            {
                 dp[i] += dp[i-c];
                 dp[i] %= MOD;
             }
