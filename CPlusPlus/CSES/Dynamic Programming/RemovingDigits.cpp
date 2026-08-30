@@ -17,19 +17,15 @@ int main()
 
     for (int i = 1; i <= n; i++)
     {
-        if (i < 10) 
+        int value = i;
+        while (value > 0) 
         {
-            dp[i] = 1;
-        }
-        else 
-        {
-            int value = i;
-            while (value > 0) 
+            int d = value % 10;
+            if (d > 0)
             {
-                int d = value % 10;
                 dp[i] = min(dp[i], dp[i-d]+1);
-                value /= 10;
             }
+            value /= 10;
         }
     }
  
