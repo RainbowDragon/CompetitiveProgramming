@@ -18,7 +18,7 @@ int main()
     cin.tie(NULL);
 
     int N, W;
-    if (!(cin >> N >> W)) return 0;
+    cin >> N >> W;
 
     // dp[j] stores the maximum value within the weight limit 'j'
     vector<ll> dp(W + 1, 0);
