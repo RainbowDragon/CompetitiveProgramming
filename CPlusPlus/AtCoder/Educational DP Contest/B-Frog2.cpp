@@ -18,7 +18,7 @@ int main()
     cin.tie(NULL);
 
     int N, K;
-    if (!(cin >> N >> K)) return 0;
+    cin >> N >> K;
 
     vector<int> height(N);
     for (int i = 0; i < N; i++)
