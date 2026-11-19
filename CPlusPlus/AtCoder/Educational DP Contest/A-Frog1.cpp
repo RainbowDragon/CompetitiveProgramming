@@ -17,7 +17,7 @@ int main()
     cin.tie(NULL);
 
     int N;
-    if (!(cin >> N)) return 0;
+    cin >> N;
 
     vector<int> height(N);
     for (int i = 0; i < N; i++)
