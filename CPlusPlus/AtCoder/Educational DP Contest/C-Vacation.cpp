@@ -15,7 +15,7 @@ int main()
     cin.tie(NULL);
 
     int N;
-    if (!(cin >> N)) return 0;
+    cin >> N;
 
     // We only need to store the DP results of the "previous day"
     // Initialize for Day 1 (index 0)
